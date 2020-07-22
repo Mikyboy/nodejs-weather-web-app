@@ -12,22 +12,18 @@ weatherForm.addEventListener('submit', (e) => {
     p1.textContent = 'Loading...'
     p2.textContent = ''
 
-    try {
-        fetch('http://localhost:3000/weather?address=' + location).then((response) => {
-            response.json().then((data) => {
-                if (data.error) {
-                    p1.textContent = data.error
-                }
+    fetch('/weather?address=' + location).then((response) => {
+        response.json().then((data) => {
+            if (data.error) {
+                p1.textContent = data.error
+            }
 
-                p1.textContent = data.title
-                p2.textContent = data.weather.lattitude + ' ' + data.weather.longtitude
-            }).catch((e) => {
-                p1.textContent = 'The server returned an error, please try a different location'
-            })
+            p1.textContent = data.title
+            p2.textContent = data.weather.lattitude + ' ' + data.weather.longtitude
+        }).catch((e) => {
+            p1.textContent = 'The server returned an error, please try a different location'
         })
-    } catch(err) {
-        console.log(err)
-    }
+    })
 
     console.log(location)
 
